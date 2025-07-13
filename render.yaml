@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: chatapp-backend
+    env: node
+    buildCommand: npm install
+    startCommand: npm run server
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+    plan: free
+
+  - type: web
+    name: chatapp-frontend
+    env: static
+    buildCommand: cd client && npm install && npm run build
+    staticPublishPath: ./client/build
+    envVars:
+      - key: REACT_APP_API_URL
+        value: https://chatapp-backend.onrender.com
+    plan: free 
